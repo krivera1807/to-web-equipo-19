@@ -24,5 +24,10 @@ namespace Dominio
         {
             ImagenUrl = url;
         }
+
+        public static implicit operator Imagen(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
