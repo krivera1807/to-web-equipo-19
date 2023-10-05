@@ -14,19 +14,25 @@ namespace tp_web_equipo_19
         public List<Articulo> ListaArticulos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            ArticuloNegocio articulo = new ArticuloNegocio();
-            ListaArticulos = articulo.Listar();
+            if (Session["ListaArticulos"] == null)
+            {
+                ArticuloNegocio articulo = new ArticuloNegocio();
+                ListaArticulos = articulo.Listar();
+                Session.Add("listaArticulos", ListaArticulos);
+            }
+
             if (!IsPostBack)
             {
-                Repetidor.DataSource = ListaArticulos;
+                Repetidor.DataSource = Session["ListaArticulos"];
                 Repetidor.DataBind();
             }
         }
 
-
         protected void btnAniadirAlCarrito_Click(object sender, EventArgs e)
         {
             string Valor = ((Button)sender).CommandArgument;
+            Session.Add("Id", Valor);
+            Response.Redirect("Carrito.aspx?id=" + Valor, false);
         }
     }
 }

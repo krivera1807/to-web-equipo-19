@@ -10,20 +10,16 @@
             <ItemTemplate>
                 <div class="col">
                     <div class="card">
-                       
-                        <img src="<%# Eval("Imagen")%>" class="card-img-top" alt="...">
+                        <img src="<%# Eval("Imagen")%>" class="card-img-top" alt="Imagen">
                         <div class="card-body">
                             <h5 class="card-title"><%# Eval("Nombre")%></h5>
                             <p class="card-text"><%# Eval("Descripcion")%></p>
                             <a href="DetalleArticulo.aspx?id=<%#Eval("Id") %>">Ver Detalle</a>
-                            <asp:button Text="Añadir al Carrito" CssClass="btn btn-primary" runat="server" Id="btnAniadirAlCarrito" CommandArgument='<%#Eval("id") %>' CommandName ="IdArticulo" OnClick ="btnAniadirAlCarrito_Click"   />
+                            <asp:button Text="Añadir al Carrito" CssClass="btn btn-primary" runat="server" Id="btnAniadirAlCarrito" CommandArgument='<%#Eval("Id") %>' CommandName ="IdArticulo" OnClick ="btnAniadirAlCarrito_Click"   />
                         </div>
                     </div>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
     </div>
-
-    <%--  <p>GRID VIEW</p>
-        <asp:GridView runat="server" ID="dgv_Articulos"></asp:GridView>--%>
 </asp:Content>
