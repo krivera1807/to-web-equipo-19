@@ -14,30 +14,37 @@ namespace tp_web_equipo_19
         public string user { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //user = Session["Id"].ToString() != null ? Session["Id"].ToString() : "";
-
-            if (Request.QueryString["Id"]!= null) 
+            if (Session["Id"] != null)
             {
-                int id = int.Parse(Request.QueryString["Id"].ToString());
+                int id = (int)Session["Id"];
 
                 List<Articulo> ListaArticulos;
                 ArticuloNegocio articulo = new ArticuloNegocio();
                 ListaArticulos = articulo.Listar();
+               
+
                 Articulo seleccionado = ListaArticulos.Find(x => x.Id == id);
 
-                // Filtrar la lista para obtener solo el artículo seleccionado
-                List<Articulo> ListaSeleccionada = Session["Carrito"] as List<Articulo>; // Usa "Carrito" en lugar de "Listaseleccionada"
+                // Verificar si la instancia de CarritoNegocio ya existe en la sesión
+                CarritoNegocio miCarritoNegocio = Session["Carrito"] as CarritoNegocio;
 
-                if (ListaSeleccionada == null)
+                if (miCarritoNegocio == null)
                 {
-                    ListaSeleccionada = new List<Articulo>();
-                    Session["Carrito"] = ListaSeleccionada;
+                    miCarritoNegocio = new CarritoNegocio();
                 }
 
-                // Agrega el artículo seleccionado a la lista del carrito
-                ListaSeleccionada.Add(seleccionado);
+                List<Articulo> ListaSeleccionada = miCarritoNegocio.listaCarrito;
 
-                // Enlazar el Repeater con la lista filtrada
+                bool articuloYaEnCarrito = ListaSeleccionada.Any(a => a.Id == seleccionado.Id);
+
+                if (!articuloYaEnCarrito)
+                {
+                    miCarritoNegocio.Agregar(seleccionado, 1);
+                }
+
+                // Actualiza la instancia de CarritoNegocio en la sesión
+                Session["Carrito"] = miCarritoNegocio;
+
                 RepeaterCarrito.DataSource = ListaSeleccionada;
                 RepeaterCarrito.DataBind();
             }

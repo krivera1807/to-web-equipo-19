@@ -2,7 +2,7 @@
     max-width: 5%;
 }
 
-.Carrito {
-    text-align: right;
+.encabezado {
+    align-items:end;
 }
 

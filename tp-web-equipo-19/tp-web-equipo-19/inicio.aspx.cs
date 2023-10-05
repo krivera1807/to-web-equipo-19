@@ -31,8 +31,12 @@ namespace tp_web_equipo_19
         protected void btnAniadirAlCarrito_Click(object sender, EventArgs e)
         {
             string Valor = ((Button)sender).CommandArgument;
-            Session.Add("Id", Valor);
-            Response.Redirect("Carrito.aspx?id=" + Valor, false);
+            if (int.TryParse(Valor, out int id))
+            {
+                Session["Id"] = id;
+            }
+            
+            Response.Redirect("Carrito.aspx", false);
         }
     }
 }
