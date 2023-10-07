@@ -2,8 +2,10 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -11,21 +13,18 @@ namespace tp_web_equipo_19
 {
     public partial class Carrito : System.Web.UI.Page
     {
-        public string user { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                MostrarCarrito();
+            }
+
             if (Session["Id"] != null)
             {
                 int id = (int)Session["Id"];
 
-                List<Articulo> ListaArticulos;
-                ArticuloNegocio articulo = new ArticuloNegocio();
-                ListaArticulos = articulo.Listar();
-               
-
-                Articulo seleccionado = ListaArticulos.Find(x => x.Id == id);
-
-                // Verificar si la instancia de CarritoNegocio ya existe en la sesión
                 CarritoNegocio miCarritoNegocio = Session["Carrito"] as CarritoNegocio;
 
                 if (miCarritoNegocio == null)
@@ -33,19 +32,43 @@ namespace tp_web_equipo_19
                     miCarritoNegocio = new CarritoNegocio();
                 }
 
-                List<Articulo> ListaSeleccionada = miCarritoNegocio.listaCarrito;
-
-                bool articuloYaEnCarrito = ListaSeleccionada.Any(a => a.Id == seleccionado.Id);
+                bool articuloYaEnCarrito = miCarritoNegocio.listacarrito.Any(item => item.Articulo.Id == id);
 
                 if (!articuloYaEnCarrito)
                 {
-                    miCarritoNegocio.Agregar(seleccionado, 1);
+                    List<Articulo> ListaArticulos;
+                    ArticuloNegocio articulo = new ArticuloNegocio();
+                    ListaArticulos = articulo.Listar();
+
+                    Articulo seleccionado = ListaArticulos.Find(x => x.Id == id);
+
+                    if (seleccionado != null)
+                    {
+                        miCarritoNegocio.Agregar(seleccionado, 1);
+                    }
                 }
 
-                // Actualiza la instancia de CarritoNegocio en la sesión
-                Session["Carrito"] = miCarritoNegocio;
+                // Calcular el total del carrito
+                decimal totalCarrito = miCarritoNegocio.CalcularTotalCarrito();
 
-                RepeaterCarrito.DataSource = ListaSeleccionada;
+                // Mostrar el total en el Label
+                lblTotalCarrito.Text = totalCarrito.ToString("C"); // Formatear el total como moneda (por ejemplo, $100.00)
+
+                Session["Carrito"] = miCarritoNegocio;
+                RepeaterCarrito.DataSource = miCarritoNegocio.listacarrito;
+                RepeaterCarrito.DataBind();
+            }
+        }
+
+
+
+        protected void MostrarCarrito()
+        {
+            CarritoNegocio miCarritoNegocio = Session["Carrito"] as CarritoNegocio;
+
+            if (miCarritoNegocio != null)
+            {
+                RepeaterCarrito.DataSource = miCarritoNegocio.listacarrito;
                 RepeaterCarrito.DataBind();
             }
         }
