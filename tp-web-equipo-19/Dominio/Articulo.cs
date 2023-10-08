@@ -16,7 +16,13 @@ namespace Dominio
         public Marca marca { get; set; }
         public Imagen imagen { get; set; }
         public Categoria categoria { get; set; }
-        public decimal Precio { get; set; }
+
+        private decimal precio;
+        public decimal Precio
+        {
+            get { return precio; }
+            set { precio = Math.Round(value, 2); }
+        }
 
 
     }

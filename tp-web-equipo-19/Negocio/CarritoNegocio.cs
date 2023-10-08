@@ -34,8 +34,10 @@ namespace Negocio
             return listacarrito;
         }
 
+        
         public decimal CalcularTotalCarrito()
         {
+
             decimal total = 0;
             foreach (var item in listacarrito)
             {

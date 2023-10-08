@@ -16,6 +16,7 @@ namespace tp_web_equipo_19
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
                 MostrarCarrito();
@@ -49,6 +50,7 @@ namespace tp_web_equipo_19
                 }
 
                 // Calcular el total del carrito
+
                 decimal totalCarrito = miCarritoNegocio.CalcularTotalCarrito();
 
                 // Mostrar el total en el Label
@@ -72,5 +74,6 @@ namespace tp_web_equipo_19
                 RepeaterCarrito.DataBind();
             }
         }
+
     }
 }

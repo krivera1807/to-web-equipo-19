@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Carrito.aspx.cs" Inherits="tp_web_equipo_19.Carrito" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style type="text/css">
+        .auto-style1 {
+            height: 21px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -8,10 +13,10 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>PRODUCTO</th>
-                    <th>DESCRIPCION</th>
-                    <th>PRECIO</th>
-                    <th>CANTIDAD</th>
+                    <th class="auto-style1">PRODUCTO</th>
+                    <th class="auto-style1">DESCRIPCION</th>
+                    <th class="auto-style1">PRECIO</th>
+                    <th class="auto-style1">CANTIDAD</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,9 +25,11 @@
                         <tr>
                             <td><%# Eval("Articulo.Nombre") %></td>
                             <td><%# Eval("Articulo.Descripcion") %></td>
-                            <td><%# Eval("Articulo.Precio") %></td>
+                            <td><%# string.Format("{0:C}", Eval("Articulo.Precio")) %></td>
+                            <%--<td>$<%# Eval("Articulo.Precio") %></td>--%>
                             <td>
-                                <input type="number" class="col-lg-4" value='<%# Eval("cantidad") %>' min="1" runat="server" id="txtCantidad" />
+                                <%--<%--<asp:TextBox ID="txtCantidad" runat="server" CssClass="col-lg-4" Text='<%# Eval("cantidad") %>' OnTextChanged="txtCantidad_TextChanged" AutoPostBack="true" />--%>
+                     <input type="number" class="col-lg-4" value='<%# Eval("cantidad") %>' min="1" runat="server" id="txtCantidad" />
                             </td>
                         </tr>
                     </ItemTemplate>
@@ -31,7 +38,7 @@
         </table>
     </div>
    
-        <td>Total: $ <asp:Label ID="lblTotalCarrito" runat="server" Text="0.00"></asp:Label></td>
+        <td>Total: <asp:Label ID="lblTotalCarrito" runat="server" Text="0.00"></asp:Label></td>
 
 
 </asp:Content>
