@@ -54,6 +54,9 @@ namespace tp_web_equipo_19
                         }
 
                     }
+                    Session["Carrito"] = miCarritoNegocio;
+                    RepeaterCarrito.DataSource = miCarritoNegocio.listacarrito;
+                    RepeaterCarrito.DataBind();
 
                     // Calcular el total del carrito
 
@@ -62,12 +65,10 @@ namespace tp_web_equipo_19
                     // Mostrar el total en el Label
                     lblTotalCarrito.Text = totalCarrito.ToString("C"); // Formatear el total como moneda (por ejemplo, $100.00)
 
-                    Session["Carrito"] = miCarritoNegocio;
-                    RepeaterCarrito.DataSource = miCarritoNegocio.listacarrito;
-                    RepeaterCarrito.DataBind();
 
                     //Se limpia sesión para que no cargue de nuevo el último ID
                     Session["Id"] = null;
+                    
 
 
                 }
@@ -84,6 +85,8 @@ namespace tp_web_equipo_19
             {
                 RepeaterCarrito.DataSource = miCarritoNegocio.listacarrito;
                 RepeaterCarrito.DataBind();
+                decimal totalCarrito = miCarritoNegocio.CalcularTotalCarrito();
+                lblTotalCarrito.Text = totalCarrito.ToString("C");
             }
         }
 

@@ -19,19 +19,19 @@
 
 
                 <div class="card mb-3" style="max-width: 540px;">
-                  <div class="row g-0">
-                    <div class="col-md-4">
-                      <img src="<%# Eval("Imagen")%>" class="card-img-top" alt="Imagen">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="<%# Eval("Imagen")%>" class="card-img-top" alt="Imagen">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title"><%# Eval("Nombre")%></h5>
+                                <p class="card-text"><%# Eval("Descripcion")%></p>
+                                <%--<p class="card-text"><%# Eval("Precio")%></p>--%>
+                                <p><%# string.Format("{0:C}", Eval("Precio")) %></p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                        <h5 class="card-title"><%# Eval("Nombre")%></h5>
-                        <p class="card-text"><%# Eval("Descripcion")%></p>
-                        <%--<p class="card-text"><%# Eval("Precio")%></p>--%>
-                          <p><%# string.Format("{0:C}", Eval("Precio")) %></p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
 

@@ -6,11 +6,10 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/166/166136.png" type="image/x-icon">
-<<<<<<< HEAD
-    <title>KF Market</title>
-=======
+
     <title>AF Market</title>
->>>>>>> 3576677e53cdcc51d90a26a39ff63c5555673821
+</head>
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
