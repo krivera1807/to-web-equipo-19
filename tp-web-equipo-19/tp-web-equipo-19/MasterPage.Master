@@ -24,6 +24,10 @@
                             <p>Inicio</p>
                         </div>
                     </a>
+                    <div>  
+                        <p> --- </p>
+
+                    </div>
                     <a href="Carrito.aspx" class="mr-3">
                         <div class="fa-solid fa-cart-shopping">
                             <p>Carrito</p>

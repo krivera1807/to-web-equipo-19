@@ -28,7 +28,7 @@
                             <td><%# string.Format("{0:C}", Eval("Articulo.Precio")) %></td>
                             <td>
                                 <asp:TextBox type="number" min="1" ID="txtCantidad" AutoPostBack="true" runat="server" CssClass="col-lg-4" Text='<%# Eval("cantidad") %>' OnTextChanged="txtCantidad_TextChanged" />
-
+                                <asp:Button ID="EliminarProducto"  AutoPostBack="true" runat="server" Text="Eliminar Producto"  OnClick ="EliminarProducto_Click"/>
                                 <%--<asp:TextBox ID="txtCantidad" runat="server" CssClass="col-lg-4" Text='<%# Eval("cantidad") %>' OnTextChanged="txtCantidad_TextChanged" AutoPostBack="true" />--%>
                                 <%--<%--<input type="number" class="col-lg-4" value='<%# Eval("cantidad") %>' min="1" runat="server" id="txtCantidad" />--%>
                             </td>
