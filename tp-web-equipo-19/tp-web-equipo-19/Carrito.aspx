@@ -26,10 +26,11 @@
                             <td><%# Eval("Articulo.Nombre") %></td>
                             <td><%# Eval("Articulo.Descripcion") %></td>
                             <td><%# string.Format("{0:C}", Eval("Articulo.Precio")) %></td>
-                            <%--<td>$<%# Eval("Articulo.Precio") %></td>--%>
                             <td>
-                                <%--<%--<asp:TextBox ID="txtCantidad" runat="server" CssClass="col-lg-4" Text='<%# Eval("cantidad") %>' OnTextChanged="txtCantidad_TextChanged" AutoPostBack="true" />--%>
-                     <input type="number" class="col-lg-4" value='<%# Eval("cantidad") %>' min="1" runat="server" id="txtCantidad" />
+                                <asp:TextBox type="number" min="1" ID="txtCantidad" AutoPostBack="true" runat="server" CssClass="col-lg-4" Text='<%# Eval("cantidad") %>' OnTextChanged="txtCantidad_TextChanged" />
+
+                                <%--<asp:TextBox ID="txtCantidad" runat="server" CssClass="col-lg-4" Text='<%# Eval("cantidad") %>' OnTextChanged="txtCantidad_TextChanged" AutoPostBack="true" />--%>
+                                <%--<%--<input type="number" class="col-lg-4" value='<%# Eval("cantidad") %>' min="1" runat="server" id="txtCantidad" />--%>
                             </td>
                         </tr>
                     </ItemTemplate>
