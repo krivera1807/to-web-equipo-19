@@ -8,6 +8,8 @@ namespace Dominio
 {
     public class Carrito
     {
+        public object style;
+
         public Articulo Articulo { get; set; }
         public int cantidad { get; set; }
         public decimal total { get; set; }

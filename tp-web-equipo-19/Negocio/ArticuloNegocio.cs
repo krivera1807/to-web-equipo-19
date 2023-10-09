@@ -58,7 +58,7 @@ namespace Negocio
                     }
                     else
                     {
-                        Aux.imagen.ImagenUrl = "";
+                        Aux.imagen.ImagenUrl = "https://images.samsung.com/is/image/samsung/co-galaxy-s10-sm-g970-sm-g970fzyjcoo-frontcanaryyellow-thumb-149016542";
                         Aux.imagen.IdCodigoArticulo = Aux.Id;
 
                     }

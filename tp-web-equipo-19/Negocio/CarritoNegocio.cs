@@ -16,6 +16,7 @@ namespace Negocio
     public class CarritoNegocio
     {
         public List<Carrito> listacarrito { get; set; } = new List<Carrito>();
+        public List<Articulo> Carrito { get; set; }
 
         public void Agregar(Articulo seleccionado, int cantidadselec)
         {
@@ -39,9 +40,10 @@ namespace Negocio
             decimal total = 0;
             foreach (var item in listacarrito)
             {
-                total += item.total;
+                total += item.total*item.cantidad;
             }
             return total;
         }
+
     }
 }
