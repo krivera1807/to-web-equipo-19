@@ -10,7 +10,7 @@
             <ItemTemplate>
                 <div class="col">
                     <div class="card">
-                        <img src='<%# Eval("Imagen")%>' onerror="imgError(this);" class="card-img-top" alt="Imagen">
+                        <img src='<%# Eval("imagen")%>' onerror="imgError(this);" class="card-img-top" alt="Imagen">
                         <div class="card-body">
                             <h5 class="card-title"><%# Eval("Nombre")%></h5>
                             <p class="card-text"><%# Eval("Descripcion")%></p>

@@ -41,6 +41,8 @@ namespace tp_web_equipo_19
                         List<Articulo> listaMostrar = new List<Articulo> { articuloSeleccionado };
                         Repeater1.DataSource = listaMostrar;
                         Repeater1.DataBind();
+
+
                     }
                 }
             }

@@ -23,7 +23,8 @@ namespace Negocio
                 {
                     Imagen aux = new Imagen();
                     aux.IdCodigoArticulo = (int)Datos.lector["IdArticulo"];
-                    aux.ImagenUrl = (string)Datos.lector["ImagenUrl"];
+                    string ImagenUrl = (string)Datos.lector["ImagenUrl"];
+                    aux.ListaDeImagenes.Add(ImagenUrl);
 
                     lista.Add(aux);
                 }
@@ -44,13 +45,17 @@ namespace Negocio
 
         public void Agregar(Articulo Nuevo, int id)
         {
+            Articulo articulo = new Articulo();
             AccesoDatos Datos = new AccesoDatos();
 
             try
             {
                 Datos.SetearConsulta("Insert into IMAGENES(IdArticulo, ImagenUrl) values(@IdCodigoArticulo, @ImagenUrl)");
                 Datos.SetearParametro("@IdCodigoArticulo", id);
-                Datos.SetearParametro("@ImagenUrl", Nuevo.imagen.ImagenUrl);
+                foreach (string imagenUrl in articulo.imagen.ListaDeImagenes )
+                {
+                    Datos.SetearParametro("@ImagenUrl", imagenUrl);
+                }
                 Datos.EjectuarAccion();
                 Datos.CerrarConexion();
 
@@ -76,7 +81,12 @@ namespace Negocio
             {
 
                 Datos.SetearConsulta("update IMAGENES set ImagenUrl = @ImagenUrl where IdArticulo = '" + articuloId + "'");
-                Datos.SetearParametro("@ImagenUrl", articulo.imagen.ImagenUrl);
+                foreach (string imagenUrl in articulo.imagen.ListaDeImagenes)
+                {
+                  Datos.SetearParametro("@ImagenUrl", imagenUrl);
+            
+                }
+             
 
 
                 Datos.EjectuarAccion();
@@ -115,7 +125,9 @@ namespace Negocio
                         Articulo aux = new Articulo();
                         aux.CodigoArticulo = articulo.CodigoArticulo;
                         aux.imagen = new Imagen();
-                        aux.imagen.ImagenUrl = (string)Datos.lector["ImagenUrl"];
+                        string imagenUrl = (string)Datos.lector["ImagenUrl"];
+                        aux.imagen.ListaDeImagenes.Add(imagenUrl);
+                        //aux.imagen.ImagenUrl = (string)Datos.lector["ImagenUrl"];
                         articulosAux.Add(aux);
 
 

@@ -19,6 +19,7 @@ namespace tp_web_equipo_19
                 ArticuloNegocio articulo = new ArticuloNegocio();
                 ListaArticulos = articulo.Listar();
                 Session.Add("listaArticulos", ListaArticulos);
+               
             }
 
             if (!IsPostBack)

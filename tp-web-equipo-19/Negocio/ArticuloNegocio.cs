@@ -53,12 +53,19 @@ namespace Negocio
                     Aux.imagen = new Imagen();
                     if (!(datos.lector.IsDBNull(datos.lector.GetOrdinal("ImagenUrl"))))
                     {
-                        Aux.imagen.ImagenUrl = (string)datos.lector["ImagenUrl"];
+                        string imagenUrl = (string)datos.lector["ImagenUrl"];
+                        if (Aux.imagen.ListaDeImagenes == null)
+                        {
+                            Aux.imagen.ListaDeImagenes = new List<string>();
+                        }
+                        Aux.imagen.ListaDeImagenes.Add(imagenUrl);
                         Aux.imagen.IdCodigoArticulo = (int)datos.lector["IdImagen"];
                     }
                     else
                     {
-                        Aux.imagen.ImagenUrl = "https://images.samsung.com/is/image/samsung/co-galaxy-s10-sm-g970-sm-g970fzyjcoo-frontcanaryyellow-thumb-149016542";
+                        string imagenUrl = (string)datos.lector["ImagenUrl"];
+                        Aux.imagen.ListaDeImagenes.Add("https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg");
+                        //Aux.imagen.ImagenUrl = "https://images.samsung.com/is/image/samsung/co-galaxy-s10-sm-g970-sm-g970fzyjcoo-frontcanaryyellow-thumb-149016542";
                         Aux.imagen.IdCodigoArticulo = Aux.Id;
 
                     }
@@ -394,12 +401,16 @@ namespace Negocio
                     Aux.imagen = new Imagen();
                     if (!(datos.lector.IsDBNull(datos.lector.GetOrdinal("ImagenUrl"))))
                     {
-                        Aux.imagen.ImagenUrl = (string)datos.lector["ImagenUrl"];
+                        string imagenUrl = (string)datos.lector["ImagenUrl"];
+                        Aux.imagen.ListaDeImagenes.Add(imagenUrl);
+                        //Aux.imagen.ImagenUrl = (string)datos.lector["ImagenUrl"];
                         Aux.imagen.IdCodigoArticulo = (int)datos.lector["IdImagen"];
                     }
                     else
                     {
-                        Aux.imagen.ImagenUrl = "";
+                        string imagenUrl = (string)datos.lector["ImagenUrl"];
+                        Aux.imagen.ListaDeImagenes.Add("");
+                        //Aux.imagen.ImagenUrl = "";
                         Aux.imagen.IdCodigoArticulo = Aux.Id;
 
                     }
