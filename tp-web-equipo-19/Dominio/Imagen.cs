@@ -10,28 +10,19 @@ namespace Dominio
     {
         public int Id { get; set; }
         public int IdCodigoArticulo { get; set; }
-        //public string ImagenUrl { get; set; }
+        public string ImagenUrl { get; set; }
         public List<string> ListaDeImagenes { get; set; }
     
-        //public override string ToString()
-        //{
-        //    return ImagenUrl;
-        //}
-
         public Imagen()
         {
 
         }
-        //public Imagen(string url)
-        //{
-        //    ImagenUrl = url;
-        //}
+        
 
         public static implicit operator Imagen(string v)
         {
             throw new NotImplementedException();
         }
-
 
 
         public List<Imagen> listar()

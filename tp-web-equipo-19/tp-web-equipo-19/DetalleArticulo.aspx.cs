@@ -27,21 +27,21 @@ namespace tp_web_equipo_19
 
             if (!IsPostBack)
             {
-                // Obtener el ID del artículo de la URL
                 if (Request.QueryString["id"] != null)
                 {
                     int idSeleccionado = int.Parse(Request.QueryString["id"]);
 
-                    // Buscar el artículo seleccionado en la lista
                     Articulo articuloSeleccionado = ListaArticulos.FirstOrDefault(a => a.Id == idSeleccionado);
 
-                    // Mostrar solo el artículo seleccionado
                     if (articuloSeleccionado != null)
                     {
                         List<Articulo> listaMostrar = new List<Articulo> { articuloSeleccionado };
                         Repeater1.DataSource = listaMostrar;
                         Repeater1.DataBind();
 
+                        List<string> listaImagenes = articuloSeleccionado.imagen.ListaDeImagenes;
+                        Carousel.DataSource = listaImagenes;
+                        Carousel.DataBind();
 
                     }
                 }

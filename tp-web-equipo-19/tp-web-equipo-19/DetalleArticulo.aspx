@@ -3,69 +3,51 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <h3>DETALLE DE ARTÍCULO</h3>
-   
-    <!-- Aquí comienza el carrusel -->
-<div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="carousel-inner">
         <asp:Repeater runat="server" ID="Repeater1">
             <ItemTemplate>
-    <div id="carouselExample" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="<%# Eval("Imagen")%>" class="card-img-top" alt="Imagen">
-                 <h5 class="card-title"><%# Eval("Nombre")%></h5>
-                 <p class="card-text"><%# Eval("Descripcion")%></p>
-            </div>
-            <div class="carousel-item">
-             <img src="<%# Eval("Imagen")%>" class="card-img-top" alt="Imagen">
-                 <h5 class="card-title"><%# Eval("Nombre")%></h5>
-                 <p class="card-text"><%# Eval("Descripcion")%></p>
-            </div>
-            <div class="carousel-item">
-             <img src="<%# Eval("Imagen")%>" class="card-img-top" alt="Imagen">
-                 <h5 class="card-title"><%# Eval("Nombre")%></h5>
-                 <p class="card-text"><%# Eval("Descripcion")%></p>
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-  </ItemTemplate>
+                <div class='<%# Container.ItemIndex == 0 ? "carousel-item active" : "carousel-item" %>'>
+                    <h5 class="card-title"><%# Eval("Nombre")%></h5>
+                    <p class="card-text"><%# Eval("Descripcion")%></p>
+                </div>
+            </ItemTemplate>
         </asp:Repeater>
-    </div>
-    <!-- Fin del carrusel -->
 
-<%--    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <asp:Repeater runat="server" ID="Repeater1">
-            <ItemTemplate>--%>
-               <%-- <!-- Contenido del artículo -->
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="<%# Eval("Imagen")%>" class="card-img-top" alt="Imagen">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title"><%# Eval("Nombre")%></h5>
-                                <p class="card-text"><%# Eval("Descripcion")%></p>
-                                <p><%# string.Format("{0:C}", Eval("Precio")) %></p>
-                            </div>
-                        </div>
+    </div>
+    <div id="Carousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <asp:Repeater runat="server" ID="Carousel">
+                <ItemTemplate>
+                    <div class='<%# Container.ItemIndex == 0 ? "carousel-item active" : "carousel-item" %>'>
+                        <img src='<%# Container.DataItem as string %>' onerror="imgError(this);" style="max-width: 100%; max-height: 300px;" class="img-fluid" alt="Imagen">
                     </div>
-                </div>--%>
-    <%--        </ItemTemplate>
-        </asp:Repeater>
-    </div--%>
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
+        <a class="carousel-control-prev" href="#Carousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#Carousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </a>
+    </div>
+
+
+    <script type="text/javascript">
+        function imgError(image) {
+            image.onerror = "";
+            image.src = 'https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg';
+            return true;
+        }
+    </script>
+
 </asp:Content>
 

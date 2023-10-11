@@ -4,13 +4,19 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<div class="row justify-content-center" style="padding: 20px;">
+    <div class="col-auto d-flex align-items-center">
+        <asp:TextBox ID="txtBuscador" runat="server" CssClass="form-control txtBuscador" />
+        <asp:Button Text="Buscar" CssClass="btn btn-primary boton-buscar" runat="server" OnClick="btnBuscar_Click" />
+    </div>
+</div>
     <h3>LISTADO DE ARTICULOS </h3>
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <asp:Repeater runat="server" ID="Repetidor">
             <ItemTemplate>
                 <div class="col">
                     <div class="card">
-                        <img src='<%# Eval("imagen")%>' onerror="imgError(this);" class="card-img-top" alt="Imagen">
+                        <img src='<%# Eval("Imagen.ImagenUrl")%>' onerror="imgError(this);" class="card-img-top" alt="Imagen">
                         <div class="card-body">
                             <h5 class="card-title"><%# Eval("Nombre")%></h5>
                             <p class="card-text"><%# Eval("Descripcion")%></p>
@@ -26,9 +32,20 @@
     <script type="text/javascript">
         function imgError(image) {
             image.onerror = "";
-            image.src = 'https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg'; 
+            image.src = 'https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg';
             return true;
         }
     </script>
+
+    <style>
+        .boton-buscar {
+            margin-left: 10px;
+            max-inline-size: 80px;
+        }
+
+        .txtBuscador{
+            max-inline-size: 80%;
+        }
+    </style>
 
 </asp:Content>

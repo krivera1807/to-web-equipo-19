@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -19,7 +21,6 @@ namespace tp_web_equipo_19
                 ArticuloNegocio articulo = new ArticuloNegocio();
                 ListaArticulos = articulo.Listar();
                 Session.Add("listaArticulos", ListaArticulos);
-               
             }
 
             if (!IsPostBack)
@@ -39,6 +40,26 @@ namespace tp_web_equipo_19
 
             Response.Redirect("Carrito.aspx", false);
         }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string filtro = txtBuscador.Text; // Artículo a buscar
+
+            List<Articulo> ListaArticulos = (List<Articulo>)Session["ListaArticulos"];
+
+            if (ListaArticulos != null)
+            {
+                List<Articulo> listaFiltrada = ListaArticulos.FindAll(x => x.Nombre.ToUpper().Contains(filtro.ToUpper()) || x.CodigoArticulo.ToUpper().Contains(filtro.ToUpper()) || x.Descripcion.ToUpper().Contains(filtro.ToUpper()) || x.marca.Descripcion.ToUpper().Contains(filtro.ToUpper()) || x.categoria.Descripcion.ToUpper().Contains(filtro.ToUpper()));
+
+                Session["listaFiltrada"] = listaFiltrada;
+                Repetidor.DataSource = listaFiltrada;
+                Repetidor.DataBind();
+            }
+
+
+        }
+
+
     }
 }
 
