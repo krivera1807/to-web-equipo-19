@@ -17,13 +17,10 @@ namespace tp_web_equipo_19
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-   
-
+         
             if (!IsPostBack)
             {
                 MostrarCarrito();
-
 
                 if (Session["Id"] != null)
                 {
@@ -50,7 +47,6 @@ namespace tp_web_equipo_19
                         {
                             miCarritoNegocio.Agregar(seleccionado, 1);
                             Session["IdArticuloSeleccionado"] = seleccionado.Id;
-                            
                         }
 
                     }
@@ -58,23 +54,18 @@ namespace tp_web_equipo_19
                     RepeaterCarrito.DataSource = miCarritoNegocio.listacarrito;
                     RepeaterCarrito.DataBind();
 
-                    // Calcular el total del carrito
-
                     decimal totalCarrito = miCarritoNegocio.CalcularTotalCarrito();
 
-                    // Mostrar el total en el Label
-                    lblTotalCarrito.Text = totalCarrito.ToString("C"); // Formatear el total como moneda (por ejemplo, $100.00)
+                    lblTotalCarrito.Text = totalCarrito.ToString("C");
 
-
-                    //Se limpia sesión para que no cargue de nuevo el último ID
                     Session["Id"] = null;
-                    
 
+                    ActualizarCantidadArticulosEnCarrito();
 
                 }
+;
             }
         }
-
 
 
         protected void MostrarCarrito()
@@ -102,33 +93,31 @@ namespace tp_web_equipo_19
                 {
                     if (miCarritoNegocio.listacarrito[i].Articulo.Id == idArticulo)
                     {
-                        return i; // Encontramos el índice del artículo en el carrito
+                        return i;
                     }
                 }
             }
 
-            return -1; // El artículo no está en el carrito
+            return -1; 
         }
 
         protected void txtCantidad_TextChanged(object sender, EventArgs e)
         {
-            // Obtener el TextBox que desencadenó el evento
             TextBox txtCantidad = (TextBox)sender;
 
-            // Obtener el idArticulo almacenado en sesión
             int idArticuloSeleccionado = Convert.ToInt32(Session["IdArticuloSeleccionado"]);
 
-            // Obtener miCarritoNegocio de la sesión
+            
             CarritoNegocio miCarritoNegocio = Session["Carrito"] as CarritoNegocio;
 
-            // Verificar si miCarritoNegocio es nulo
+            
             if (miCarritoNegocio != null)
             {
-                // Obtener el valor actualizado del TextBox
+          
                 int nuevaCantidad;
                 if (int.TryParse(txtCantidad.Text, out nuevaCantidad))
                 {
-                    // Actualizar la cantidad en miCarritoNegocio.listacarrito
+                    
                     int indice = ObtenerIndiceDelArticulo(idArticuloSeleccionado);
 
                     if (indice >= 0 && indice < miCarritoNegocio.listacarrito.Count)
@@ -137,7 +126,8 @@ namespace tp_web_equipo_19
                     }
                   
                     decimal totalCarrito= miCarritoNegocio.CalcularTotalCarrito();
-                    lblTotalCarrito.Text = totalCarrito.ToString("C"); // Formatear el total como moneda (por ejemplo, $100.00)
+                    lblTotalCarrito.Text = totalCarrito.ToString("C");
+                    ActualizarCantidadArticulosEnCarrito();
                     MostrarCarrito();
                 }
             }
@@ -145,29 +135,40 @@ namespace tp_web_equipo_19
 
         protected void EliminarProducto_Click(object sender, EventArgs e)
         {
-            int indice = new int();
-           
-            CarritoNegocio miCarritoNegocio = Session["Carrito"] as CarritoNegocio;
-            int idArticuloSeleccionado = Convert.ToInt32(Session["IdArticuloSeleccionado"]);
+            int idArticuloSeleccionado = Convert.ToInt32(((Button)sender).CommandArgument);
 
-          
-            foreach(var item  in miCarritoNegocio.listacarrito)
+            CarritoNegocio miCarritoNegocio = Session["Carrito"] as CarritoNegocio;
+
+            for (int i = 0; i < miCarritoNegocio.listacarrito.Count; i++)
             {
-                if(idArticuloSeleccionado == item.Articulo.Id)
+                if (miCarritoNegocio.listacarrito[i].Articulo.Id == idArticuloSeleccionado)
                 {
-                    indice = miCarritoNegocio.listacarrito.IndexOf(item);
+                    miCarritoNegocio.listacarrito.RemoveAt(i);
+                    break; // Importante salir del bucle después de eliminar el elemento
                 }
             }
-             miCarritoNegocio.listacarrito.RemoveAt(indice);
-
-            
 
             decimal totalCarrito = miCarritoNegocio.CalcularTotalCarrito();
-            //Session["Carrito"] = miCarritoNegocio.listacarrito;
 
-            lblTotalCarrito.Text = totalCarrito.ToString("C"); // Formatear el total como moneda (por ejemplo, $100.00)
+            lblTotalCarrito.Text = totalCarrito.ToString("C");
+            ActualizarCantidadArticulosEnCarrito();
+            Response.Redirect(Request.RawUrl);
             MostrarCarrito();
-     
+        }
+
+
+        private void ActualizarCantidadArticulosEnCarrito()
+        {
+            CarritoNegocio miCarritoNegocio = Session["Carrito"] as CarritoNegocio;
+
+            if (miCarritoNegocio == null)
+            {
+                miCarritoNegocio = new CarritoNegocio();
+            }
+
+            int cantidadArticulosEnCarrito = miCarritoNegocio.listacarrito.Count;
+
+            Session["CantidadArticulosEnCarrito"] = cantidadArticulosEnCarrito;
         }
     }
 }

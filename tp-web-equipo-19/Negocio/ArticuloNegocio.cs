@@ -23,13 +23,14 @@ namespace Negocio
 
             try
             {
-
                 datos.SetearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Id As IdMarca, M.Descripcion As Marca, I.IdArticulo as IdImagen, I.ImagenUrl, A.Precio, C.Id As IdCategoria, C.Descripcion As Categoria from ARTICULOS A left join MARCAS M on A.IdMarca = M.Id left join CATEGORIAS C on A.IdCategoria = C.Id  left join IMAGENES I on I.IdArticulo = A.Id order by  A.Nombre ");
                 datos.EjecutarConsulta();
 
                 while (datos.lector.Read())
                 {
                     Articulo Aux = new Articulo();
+                    Aux.imagen = new Imagen(); 
+
                     Aux.Id = (int)datos.lector["Id"];
                     Aux.CodigoArticulo = (string)datos.lector["Codigo"];
                     Aux.Nombre = (string)datos.lector["Nombre"];
@@ -41,7 +42,8 @@ namespace Negocio
                     Aux.categoria = new Categoria();
 
                     if (!(datos.lector.IsDBNull(datos.lector.GetOrdinal("Categoria"))))
-                    {
+                     { 
+                    
                         Aux.categoria.Descripcion = (string)datos.lector["Categoria"];
                         Aux.categoria.Id = (int)datos.lector["IdCategoria"];
                     }
@@ -50,24 +52,39 @@ namespace Negocio
                         Aux.categoria.Descripcion = "";
                     }
 
+                    //Imágen para inicio
                     Aux.imagen = new Imagen();
                     if (!(datos.lector.IsDBNull(datos.lector.GetOrdinal("ImagenUrl"))))
                     {
-                        string imagenUrl = (string)datos.lector["ImagenUrl"];
-                        if (Aux.imagen.ListaDeImagenes == null)
-                        {
-                            Aux.imagen.ListaDeImagenes = new List<string>();
-                        }
-                        Aux.imagen.ListaDeImagenes.Add(imagenUrl);
+                        Aux.imagen.ImagenUrl = (string)datos.lector["ImagenUrl"];
                         Aux.imagen.IdCodigoArticulo = (int)datos.lector["IdImagen"];
                     }
                     else
                     {
-                        string imagenUrl = (string)datos.lector["ImagenUrl"];
-                        Aux.imagen.ListaDeImagenes.Add("https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg");
-                        //Aux.imagen.ImagenUrl = "https://images.samsung.com/is/image/samsung/co-galaxy-s10-sm-g970-sm-g970fzyjcoo-frontcanaryyellow-thumb-149016542";
+                        Aux.imagen.ImagenUrl = "https://images.samsung.com/is/image/samsung/co-galaxy-s10-sm-g970-sm-g970fzyjcoo-frontcanaryyellow-thumb-149016542";
                         Aux.imagen.IdCodigoArticulo = Aux.Id;
 
+                    }
+
+                    //Lista imágen p/carrousel
+
+                    ImagenNegocio imagenNegocio = new ImagenNegocio();
+                    List<Imagen> ListaImagenes = new List<Imagen>();
+                    ListaImagenes = imagenNegocio.listar();
+                    List<string> listaArtSeleccionado = new List<string>();
+
+
+                    foreach (Imagen item in ListaImagenes)
+                    {
+                        if (Aux.Id == item.IdCodigoArticulo)
+                        {
+                            if (Aux.imagen.ListaDeImagenes == null)
+                            {
+                                Aux.imagen.ListaDeImagenes = new List<string>();
+                            }
+
+                            Aux.imagen.ListaDeImagenes.AddRange(item.ListaDeImagenes);
+                        }
                     }
 
                     bool EstaEnLista = new bool();
@@ -85,23 +102,22 @@ namespace Negocio
                     {
                         Lista.Add(Aux);
                     }
-
-
-
-
                 }
 
                 return Lista;
             }
+
             catch (Exception ex)
             {
 
                 throw ex;
             }
+
             finally
             {
                 datos.CerrarConexion();
             }
+        
 
         }
 
