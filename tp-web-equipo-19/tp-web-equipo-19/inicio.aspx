@@ -4,7 +4,6 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<<<<<<< HEAD
     
     <div class="vertical-center"><h3>LISTADO DE ARTICULOS </h3></div>
     
@@ -16,16 +15,6 @@
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4" style="margin: 20px;">
-=======
-<div class="row justify-content-center" style="padding: 20px;">
-    <div class="col-auto d-flex align-items-center">
-        <asp:TextBox ID="txtBuscador" runat="server" CssClass="form-control txtBuscador" />
-        <asp:Button Text="Buscar" CssClass="btn btn-primary boton-buscar" runat="server" OnClick="btnBuscar_Click" />
-    </div>
-</div>
-    <h3>LISTADO DE ARTICULOS </h3>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
->>>>>>> aa8add6c8fa567a2cae1f06975cbe0961a36726f
         <asp:Repeater runat="server" ID="Repetidor">
             <ItemTemplate>
                 <div class="col">
@@ -60,7 +49,6 @@
             max-inline-size: 80px;
         }
 
-<<<<<<< HEAD
         .txtBuscador {
             max-inline-size: 800px;
         }
@@ -75,10 +63,6 @@
             justify-content: center;
             align-items: center;
             padding: 10px;
-=======
-        .txtBuscador{
-            max-inline-size: 80%;
->>>>>>> aa8add6c8fa567a2cae1f06975cbe0961a36726f
         }
     </style>
 

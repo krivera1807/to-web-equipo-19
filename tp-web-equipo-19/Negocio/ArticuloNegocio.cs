@@ -29,11 +29,7 @@ namespace Negocio
                 while (datos.lector.Read())
                 {
                     Articulo Aux = new Articulo();
-<<<<<<< HEAD
                     Aux.imagen = new Imagen(); 
-=======
-                    Aux.imagen = new Imagen(); // Crear una instancia de Imagen
->>>>>>> aa8add6c8fa567a2cae1f06975cbe0961a36726f
 
                     Aux.Id = (int)datos.lector["Id"];
                     Aux.CodigoArticulo = (string)datos.lector["Codigo"];
@@ -111,12 +107,6 @@ namespace Negocio
                 return Lista;
             }
 
-<<<<<<< HEAD
-=======
-           
-        
-
->>>>>>> aa8add6c8fa567a2cae1f06975cbe0961a36726f
             catch (Exception ex)
             {
 

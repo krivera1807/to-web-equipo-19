@@ -45,11 +45,7 @@ namespace tp_web_equipo_19
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
             string filtro = txtBuscador.Text;
-=======
-            string filtro = txtBuscador.Text; // Artículo a buscar
->>>>>>> aa8add6c8fa567a2cae1f06975cbe0961a36726f
 
             List<Articulo> ListaArticulos = (List<Articulo>)Session["ListaArticulos"];
 
@@ -62,15 +58,8 @@ namespace tp_web_equipo_19
                 Repetidor.DataBind();
             }
 
-<<<<<<< HEAD
         }
 
-=======
-
-        }
-
-
->>>>>>> aa8add6c8fa567a2cae1f06975cbe0961a36726f
     }
 }
 
